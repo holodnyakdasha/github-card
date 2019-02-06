@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {AxiosInstance as axios} from "axios";
+import axios from 'axios';
 
 
 class App extends Component {
@@ -8,6 +8,7 @@ class App extends Component {
   state = {
     cards:[]
   };
+
   addNewCard = (cardInfo) =>{
     this.setState(prevState =>({
         cards: prevState.cards.concat(cardInfo)
@@ -56,6 +57,7 @@ class Form extends React.Component{
   state = {userName: ''}
   handleSubmit = (event)=>{
     event.preventDefault();
+    console.log(axios)
     axios.get(`https://api.github.com/users/${this.state.userName}`).then(resp => {
           this.props.onSubmit(resp.data);
           this.setState({userName: ''});
