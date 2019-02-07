@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios';
+import Form from './Form.js';
+import CardList from './CardList.js';
 
 
 class App extends Component {
@@ -26,54 +27,10 @@ class App extends Component {
     );
   }
 }
-
 export default App;
 
-const Card =(props) => {
-  return(
-      <div style={{margin:'1em'}}>
-        <img src={props.avatar_url}/>
-        <div style={{display:'inline-block', marginLeft:10}}>
-          <div style={{fontSize:'1.25em',fontWeight:'bold'}}>{props.name}</div>
-          <div>{props.company}</div>
-      </div>
-      </div>
-
-  );
-
-};
 
 
-const CardList = (props) =>{
-  return(
-      <div>
-        {props.cards.map(card => <Card {...card} />)}
-      </div>
-  );
-};
 
 
-class Form extends React.Component{
-  state = {userName: ''}
-  handleSubmit = (event)=>{
-    event.preventDefault();
-    console.log(axios)
-    axios.get(`https://api.github.com/users/${this.state.userName}`).then(resp => {
-          this.props.onSubmit(resp.data);
-          this.setState({userName: ''});
-        });
 
-  };
-  render() {
-    return (
-        <form onSubmit ={this.handleSubmit}>
-          <input type='text'
-                 value={this.state.userName}
-                 onChange={(event)=> this.setState({userName: event.target.value})}
-                 placeholder={"Github user name"} required/>
-          <button type={'submit'}>Add card</button>
-        </form>
-    );
-  }
-
-}
